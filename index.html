@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cleyes</title>
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        overflow: hidden;
+        font-family: 'Courier New', Courier, monospace;
+        color: #fff;
+      }
+
+      #app {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* WebGL canvas — fills the viewport */
+      #gl-canvas {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Hidden video element — source only, never shown to user */
+      #camera-video {
+        display: none;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      /* Debug overlay panel — bottom-left */
+      #debug-overlay {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        background: rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 10px 12px;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        line-height: 1.8;
+        z-index: 20;
+        display: none;
+        max-width: 300px;
+      }
+
+      #debug-overlay.visible {
+        display: block;
+      }
+
+      #debug-overlay canvas {
+        display: block;
+        margin-top: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        image-rendering: pixelated;
+      }
+
+      .debug-row {
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+      }
+
+      .debug-label {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .debug-value {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      /* lil-gui positioning override */
+      .lil-gui.root {
+        --width: 240px;
+        --font-size: 11px;
+        z-index: 20 !important;
+        position: fixed !important;
+        top: auto !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        margin: 0 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="gl-canvas"></canvas>
+      <video id="camera-video" playsinline muted></video>
+
+      <div id="debug-overlay">
+        <div class="debug-row">
+          <span class="debug-label">FPS</span>
+          <span class="debug-value" id="dbg-fps">—</span>
+        </div>
+        <div class="debug-row">
+          <span class="debug-label">Render ms</span>
+          <span class="debug-value" id="dbg-render-ms">—</span>
+        </div>
+        <div class="debug-row">
+          <span class="debug-label">Analysis ms</span>
+          <span class="debug-value" id="dbg-analysis-ms">—</span>
+        </div>
+        <div class="debug-row">
+          <span class="debug-label">Mode</span>
+          <span class="debug-value" id="dbg-mode">—</span>
+        </div>
+        <div class="debug-row">
+          <span class="debug-label">Resolution</span>
+          <span class="debug-value" id="dbg-resolution">—</span>
+        </div>
+        <div class="debug-row">
+          <span class="debug-label">Camera</span>
+          <span class="debug-value" id="dbg-camera">—</span>
+        </div>
+        <div id="dbg-canvases"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
