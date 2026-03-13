@@ -1,13 +1,12 @@
 import { defineConfig } from 'vite';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 export default defineConfig({
-  // Inline GLSL shaders are handled as plain strings via ?raw imports.
-  // No special plugin required since we embed GLSL in TypeScript template literals.
+  plugins: [basicSsl()],
   server: {
     port: 5173,
-    // Required for getUserMedia: Chrome allows camera on localhost without HTTPS.
-    // In production, HTTPS is mandatory.
-    host: 'localhost',
+    host: true, // Expose on LAN so mobile devices can connect
+    // HTTPS provided by basicSsl plugin — required for getUserMedia on non-localhost
   },
   build: {
     target: 'es2022',

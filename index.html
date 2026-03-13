@@ -95,6 +95,20 @@
         bottom: 0 !important;
         margin: 0 !important;
       }
+
+      /* Mobile: smaller panel, larger touch targets via lil-gui touchStyles */
+      @media (max-width: 480px) {
+        .lil-gui.root {
+          --width: 200px;
+          --font-size: 10px;
+        }
+
+        #debug-overlay {
+          font-size: 9px;
+          max-width: 200px;
+          padding: 6px 8px;
+        }
+      }
     </style>
   </head>
   <body>

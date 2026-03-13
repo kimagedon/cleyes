@@ -22,7 +22,8 @@ export class ControlsPanel {
 
   constructor(initialParams: RenderParams) {
     this.proxy = { ...initialParams };
-    this.gui = new GUI({ title: 'Settings', width: 260 });
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    this.gui = new GUI({ title: 'Settings', width: isTouchDevice ? 220 : 260 });
     this.buildControls();
     this.updateForEffect('rgbDissolve');
     this.gui.close();
